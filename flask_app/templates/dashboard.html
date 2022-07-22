@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Subscriptions Dashboard</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='{{ url_for("static", filename="css/style.css")}}'>
+
+</head>
+
+<body>
+    <h1>Welcome {{user.first_name}} {{user.last_name}}     <a href="/magazine/create">Add Magazine</a> <a href="/user/{{user.id}}">Account</a> <a href="/logout">Logout</a></h1>
+    <h2>Magazines</h2>
+
+    {% with messages = get_flashed_messages(category_filter=['subscribed']) %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+
+    {% for magazine in magazines %}
+        <p><a href="/magazine/{{magazine.id}}">{{magazine.title}}</a> added by {{magazine.user.first_name}} {{magazine.user.last_name}} 
+            {% if user.id not in magazine.user_ids_who_subscribed %}
+            <form action="/user/subscribe" method="post">
+                <input type="hidden" name="magazine_id" value="{{magazine.id}}">
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="submit" value="Subscribe"></form>
+            {% endif %}
+            
+        </p>
+    {% endfor %}
+
+</body>
+
+</html>

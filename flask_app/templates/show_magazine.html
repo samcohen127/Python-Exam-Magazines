@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Show Magazine</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='{{ url_for("static", filename="css/style.css")}}'>
+</head>
+<body>
+    <h2>     <a href="/magazine/create">Add Magazine</a> <a href="/user/{{user.id}}">Account</a> <a href="/logout">Logout</a></h2>
+
+    <h1>{{magazine.title}}</h1>
+    <br>
+    <p>Added by {{magazine.user.first_name}} {{magazine.user.last_name}}</p>
+    <p>Description:</p>
+    <p>{{magazine.description}}</p>
+    <br>
+    <p>Subscribers:</p>
+    <p>{{subscribers | length}}</p>
+        
+</body>
+    
+</html>

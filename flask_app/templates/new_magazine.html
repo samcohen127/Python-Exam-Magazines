@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>New Magazine</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='{{ url_for("static", filename="css/style.css")}}'>
+</head>
+<body>
+    <h2>     <a href="/dashboard">Dashboard</a> <a href="/logout">Logout</a></h2>
+
+    <h1>Add a Magazine</h1>
+    {% with messages = get_flashed_messages(category_filter=['mag_error']) %}     <!-- declare a variable called messages -->
+    {% if messages %}                                <!-- check if there are any messages -->
+        {% for message in messages %}                <!-- loop through the messages -->
+            <p>{{message}}</p>                       <!-- display each message in a paragraph tag -->
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <form action="/magazine/create/save" method="POST">
+        <input type="hidden" name="user_id" value="{{session['user_id']}}">
+        <label for="title">Title: </label>
+        <input name="title" type="text">
+        <label for="description">Description: </label>
+        <input name="description" type="textarea">
+        <button type="submit">Create</button>
+    </form>
+
+</body>
+</html>
